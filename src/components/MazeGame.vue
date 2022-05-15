@@ -115,6 +115,13 @@
 
 <div class="bottom-text">Use your mouse to go through the maze, no cheating 👀</div>
 
+ <a class="link-text" href="https://github.com/Louise-Ann93">@MadebyWillo</a>
+
+  <a href="https://www.buymeacoffee.com/lannwillo" target="_blank">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" 
+    alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;">
+  </a>
+
 </div>
 
 </template>
@@ -230,16 +237,27 @@ grid-template: repeat(6, 50px) / repeat(6, 50px);
   font-weight: 400;
   font-size: 18px;
   color: black;
-  font-family: 'Courier New', Courier, monospace;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
 }
 
 .text {
   color: black;
-  font-family: 'Courier New', Courier, monospace;
+   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 12px;
+  align-items: center;
+}
+
+.link-text { 
+  margin-top:24px;
+  margin-bottom: 24px;
+  color: rgb(2, 2, 112);
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 14px;
 }
 
 .background-image {
+  padding: 0;
   display: none;
   min-height: 100vh;
   width: 100%;
@@ -249,7 +267,7 @@ grid-template: repeat(6, 50px) / repeat(6, 50px);
   background-position: center;
   background-color: black;
   color: white;
-  font-family: 'Courier New', Courier, monospace;
+   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 100px;
   text-align: center;
   margin: 0 auto;
