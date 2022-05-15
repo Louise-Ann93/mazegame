@@ -138,12 +138,13 @@ export default {
          this.warning = 0
        }
       },
-      pointerX () {
-        if (this.pointerX == 724) {
-          document.getElementById('map').style.display = "none"
-          document.getElementById("background-image").style.display = "block";
-        }
-      }
+      // pointerX () {
+      //   if (this.pointerX == 724 && !localStorage.getItem('imageShown')) {
+      //      document.getElementById('map').style.display = "none"
+      //       document.getElementById("background-image").style.display = "block";
+      //       localStorage.setItem('imageShown', true);
+      //   }
+      // }
     },
     methods: {
         getMouseCoord(event) {
