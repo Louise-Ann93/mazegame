@@ -1,10 +1,12 @@
 <template>
 
-<div class="wrapper" @mousemove="getMouseCoord">
+<div class="wrapper">
 
-<div id="background-image" class="background-image"></div>
+<div id="background-image" class="background-image">
+  YOU SHALL NOT PASS
+</div>
 
-  <div id="map" class="map">
+  <div id="map" class="map" @mousemove="getMouseCoord">
       
       <div @mouseover="mouseWarning" 
       class="wall border-top border-left">
@@ -32,7 +34,7 @@
       </div>
 
       <div class="floor border-top border-left"></div>
-      <div class="floor border-bottom"></div>
+      <div @mouseover="imagePopUp" class="floor border-bottom"></div>
       <div class="floor border-top border-right"></div>
 
       <div @mouseover="mouseWarning" 
@@ -88,7 +90,7 @@
       class="wall border-left border-bottom">
       </div>
 
-      <div id="start" class="text floor border-left border-right">
+      <div @mouseover="start" id="start" class="text floor border-left border-right">
         Start
       </div>
 
@@ -109,14 +111,9 @@
       class="wall border-bottom border-right">
       </div>
 
-    
-<!-- <div id="clock" class="clock">
-  <div class="time">{{ time }}</div>
-  </div> -->
-
 </div>
 
-<div class="clock">Move over Start to start the timer, once you have reached the finish the timer will stop 👏🏻</div>
+<div class="bottom-text">Use your mouse to go through the maze, no cheating 👀</div>
 
 </div>
 
@@ -131,10 +128,7 @@ export default {
             warning: 0,
             pointerX: 0,
             pointerY: 0,
-            time: '00:00:00.000',
             started: false,
-            stopped: false,
-            running: false
         };
     },
     watch: {
@@ -145,7 +139,7 @@ export default {
        }
       },
       pointerX () {
-        if (this.pointerX == -1145) {
+        if (this.pointerX == 724) {
           document.getElementById('map').style.display = "none"
           document.getElementById("background-image").style.display = "block";
         }
@@ -153,17 +147,34 @@ export default {
     },
     methods: {
         getMouseCoord(event) {
-            this.pointerX = event.screenX;
-            this.pointerY = event.screenY;
-            console.log(this.pointerX)
+            this.pointerX = event.clientX;
+            this.pointerY = event.clientY;
         },
         mouseWarning() {
-            this.warning++;
-            console.log(this.warning)
+            this.warning++
         },
         wellDone () {
-          alert('CONGRATS YOU WON 🎉')
+          if(this.started || localStorage.getItem('started') ) {
+            alert('CONGRATS YOU WON 🎉')
+            this.started = false
+            localStorage.removeItem('started')
+            localStorage.removeItem('imageShown')
+          } else {
+             alert('YOU CHEAT! ❌ START AGAIN')
+          }
         },
+        imagePopUp () {
+          if (!localStorage.getItem('imageShown')) {
+            document.getElementById('map').style.display = "none"
+            document.getElementById("background-image").style.display = "block";
+            localStorage.setItem('imageShown', true);
+          }   
+
+        },
+        start() {
+          this.started = true
+          localStorage.setItem('started', true);
+        }
 
     },
 }
@@ -213,10 +224,7 @@ grid-template: repeat(6, 50px) / repeat(6, 50px);
   border-bottom: 2px solid black;
 }
 
-.clock {
-  order: 0;
-  flex: 0 1 auto;
-  align-self: center;
+.bottom-text {
   margin-top: 24px;
   font-weight: 400;
   font-size: 18px;
@@ -238,5 +246,11 @@ grid-template: repeat(6, 50px) / repeat(6, 50px);
   background-image: url(/src/assets/nic-cage-gandalf.webp);
   background-repeat: no-repeat;
   background-position: center;
+  background-color: black;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 100px;
+  text-align: center;
+  margin: 0 auto;
 }
 </style>
