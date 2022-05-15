@@ -1,7 +1,10 @@
 <template>
-<div class="wrapper">
 
-  <div class="map">
+<div class="wrapper" @mousemove="getMouseCoord">
+
+<div id="background-image" class="background-image"></div>
+
+  <div id="map" class="map">
       
       <div @mouseover="mouseWarning" 
       class="wall border-top border-left">
@@ -85,7 +88,7 @@
       class="wall border-left border-bottom">
       </div>
 
-      <div class="floor border-left border-right">
+      <div id="start" class="text floor border-left border-right">
         Start
       </div>
 
@@ -93,7 +96,9 @@
       class="wall border-bottom">
       </div>
 
-      <div @mouseover="wellDone" class="floor border-left border-right">
+      <div id="stop" 
+      @mouseover="wellDone" 
+      class="text floor border-left border-right">
         Finish
       </div>
      
@@ -103,7 +108,15 @@
       <div @mouseover="mouseWarning"
       class="wall border-bottom border-right">
       </div>
-  </div>
+
+    
+<!-- <div id="clock" class="clock">
+  <div class="time">{{ time }}</div>
+  </div> -->
+
+</div>
+
+<div class="clock">Move over Start to start the timer, once you have reached the finish the timer will stop 👏🏻</div>
 
 </div>
 
@@ -118,30 +131,40 @@ export default {
             warning: 0,
             pointerX: 0,
             pointerY: 0,
+            time: '00:00:00.000',
+            started: false,
+            stopped: false,
+            running: false
         };
     },
     watch: {
       warning () {
        if(this.warning == 3) {
-         alert('Fail!')
+         alert('Absolute Fail! 🙄')
          this.warning = 0
-       } 
+       }
       },
+      pointerX () {
+        if (this.pointerX == -1145) {
+          document.getElementById('map').style.display = "none"
+          document.getElementById("background-image").style.display = "block";
+        }
+      }
     },
     methods: {
-        getMouseCoOrd(event) {
-            this.pointerX = event.clientX;
-            this.pointerY = event.clientY;
-            console.log(pointerX)
-            console.log(pointerY)
+        getMouseCoord(event) {
+            this.pointerX = event.screenX;
+            this.pointerY = event.screenY;
+            console.log(this.pointerX)
         },
         mouseWarning() {
             this.warning++;
             console.log(this.warning)
         },
         wellDone () {
-          alert('CONGRATS YOU WON')
-        }
+          alert('CONGRATS YOU WON 🎉')
+        },
+
     },
 }
 
@@ -151,8 +174,10 @@ export default {
 
 .wrapper {
   display: flex;
+  align-items: center;
+  flex-direction: column;
   justify-content: center;
-
+  min-height: 100vh;
 }
 .map {
 text-align: center;
@@ -162,12 +187,14 @@ grid-template: repeat(6, 50px) / repeat(6, 50px);
 
 .wall {
   background-color: green;
+  cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='22' height='26' viewport='0 0 100 100' style='fill:black;font-size:13px;'><text y='50%'>💩</text></svg>") 16 0,auto; 
 }
 .wall:hover {
   background-color: red;
 }
 .floor {
   background-color: lightgrey;
+  cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='22' height='26' viewport='0 0 100 100' style='fill:black;font-size:13px;'><text y='50%'>😀</text></svg>") 16 0,auto; 
 }
 
 .border-left {
@@ -184,5 +211,32 @@ grid-template: repeat(6, 50px) / repeat(6, 50px);
 
 .border-bottom {
   border-bottom: 2px solid black;
+}
+
+.clock {
+  order: 0;
+  flex: 0 1 auto;
+  align-self: center;
+  margin-top: 24px;
+  font-weight: 400;
+  font-size: 18px;
+  color: black;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.text {
+  color: black;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
+.background-image {
+  display: none;
+  min-height: 100vh;
+  width: 100%;
+  z-index: 100;
+  background-image: url(/src/assets/nic-cage-gandalf.webp);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 </style>
