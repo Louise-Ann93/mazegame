@@ -8,6 +8,10 @@ Its something little and fun I decided to create whilst learning JavaScript.
 
 Enjoy 🎉
 
-Many thanks,
+## Authors
 
-Lou
+- [@Louise-Ann93](https://github.com/Louise-Ann93/)
+
+## Feedback
+
+If you have any feedback, please reach out to me at madebywillo@gmail.com
