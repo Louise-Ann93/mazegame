@@ -2,7 +2,7 @@
 
 Welcome to my maze game! 👏🏻
 
-link; https://mazegamepractice.netlify.app/
+link; https://maze-game-madebywillo.netlify.app/
 
 Its something little and fun I decided to create whilst learning JavaScript.
 
